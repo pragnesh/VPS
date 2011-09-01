@@ -5,6 +5,11 @@
 This should provide a set of simple shell scripts which may help setting your
 Debian Squeeze VPS.
 
+## Usage
+
+1. Download: wget --no-check-certificate https://nodeload.github.com/TigersWay/VPS/tarball/master -O- | tar xz --strip-components=1 --exclude=*.md
+2. Run: bash vps.sh
+
 ## Copyright and License
 
 Copyright (c) 2011 Benoit Michaud / Tiger's Way
