@@ -2,6 +2,7 @@
 # VPS Management : Setup
 #  - hostname
 #  - timezone
+#  - aliases & prompt
 #  - apt sources (+DotDeb)
 #  - apt update
 # ------------------------------------------------------------ #
@@ -13,7 +14,8 @@ setup() {
     hostname -F /etc/hostname
   fi
 
-  TIMEZONE=`cat /etc/timezone`
+#  TIMEZONE=`cat /etc/timezone`
+  TIMEZONE=`tail -1 /etc/timezone`
   if ! confirm "Confirm or input new timezone" $TIMEZONE; then
     echo $REPLY > /etc/timezone
     dpkg-reconfigure -f noninteractive tzdata

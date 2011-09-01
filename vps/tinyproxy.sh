@@ -35,8 +35,9 @@ EOF
 
     service tinyproxy restart
     ok 'tinyproxy installed and setup.\n'
+  else
+    service tinyproxy restart
   fi
 }
 
 options=("${options[@]}" "tinyproxy (Light-weight HTTP/HTTPS proxy)")
-

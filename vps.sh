@@ -3,7 +3,7 @@
 # ------------------------------------------------------------ #
 #!/bin/bash
 
-echo -e "\e[1mVPS Management v0.1 (Tiger's Way)\e[m";
+echo -e "\e[1mVPS Management v0.2 (Tiger's Way)\e[m";
 
 # Sanity checks
 
@@ -30,7 +30,7 @@ done
 
 if [ ! -z "$1" ]; then
   if [ `declare -F $1` ]; then
-	$1
+	$1 $2 $3
 	exit 0
   fi
 fi

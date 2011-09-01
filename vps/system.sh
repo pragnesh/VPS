@@ -1,8 +1,7 @@
 # ------------------------------------------------------------ #
-# VPS Management : System +/-LEB style
+# VPS Management : System +/- LEB style
 #  - remove unneeded & rsyslogd
 #  - install locales, htop, nano, syslogd, xinetd, dropbear
-#  - apt sources
 # ------------------------------------------------------------ #
 
 unneeded() {
