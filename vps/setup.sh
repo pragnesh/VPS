@@ -38,9 +38,9 @@ EOF
     fi
     cat > /etc/apt/sources.list <<EOF
 # Tiger's Way
-deb http://ftp.$REPLY.debian.org/debian/ squeeze main
+deb http://ftp.$REPLY.debian.org/debian/ squeeze main contrib non-free
 deb http://security.debian.org/ squeeze/updates main
-deb http://ftp.$REPLY.debian.org/debian/ squeeze-proposed-updates main
+deb http://ftp.$REPLY.debian.org/debian/ squeeze-proposed-updates main contrib non-free
 EOF
   fi
 
