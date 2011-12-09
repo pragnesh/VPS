@@ -20,7 +20,7 @@ unneeded() {
   fi
 }
 
-basics() {
+leb() {
   if ! apt_installed locales; then
     apt_install locales
     ok 'locales installed.\n'
@@ -84,17 +84,21 @@ EOF
     if ! confirm 'Confirm your IP only has access via SSH.\n Or set which one(s)' $IPS; then
       IPS=$REPLY
     fi
+    PORT=$((RANDOM+RANDOM%31744+1024))
+    if ! confirm 'Confirm your ssh port.\n Or set which one' $PORT; then
+      PORT=$REPLY
+    fi
+    echo privatessh $PORT/tcp >> /etc/services
     cat > /etc/xinetd.d/dropbear <<EOF
-service ssh
+service privatessh
 {
   socket_type = stream
-  only_from = $IPS
   wait = no
+  disable = no
+  only_from = $IPS
   user = root
-  protocol = tcp
   server = /usr/sbin/dropbear
   server_args = -i -I 600
-  disable = no
 }
 EOF
 
@@ -109,11 +113,11 @@ EOF
     update-rc.d -f ssh remove
 
     invoke-rc.d xinetd restart
-    ok 'dropbear installed.\n'
+    ok 'dropbear installed (Check now your ssh connection before you drop this one).\n'
   fi
 }
 
-system() {
+lowendbox() {
   unneeded
-  basics
+  leb
 }

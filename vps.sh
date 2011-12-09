@@ -3,7 +3,7 @@
 # ------------------------------------------------------------ #
 #!/bin/bash
 
-echo -e "\e[1mVPS Management v0.2 (Tiger's Way)\e[m";
+echo -e "\e[1mVPS Management v0.3 (Tiger's Way)\e[m";
 
 # Sanity checks
 
@@ -21,23 +21,40 @@ fi
 
 # Load `Modules`
 
-options=("setup (hostname, timezome, apt sources)" "system (LowEndBox style)")
+mainOptions=(
+  "minimal (Light Debian server + SSH)"
+  "basics (hostname, timezone, APT sources)"
+  "lowendbox (LEA style: syslogd, xinetd, dropbear)"
+)
+tools=()
+
+addModule(){
+  tools=("${tools[@]}" "$1")
+}
 
 for file in vps/*.sh
 do
   source $file
 done
 
+# Check if paramater(s), and corresponding function...
 if [ ! -z "$1" ]; then
   if [ `declare -F $1` ]; then
-	$1 $2 $3
-	exit 0
+	$@
+	exit $?
   fi
 fi
 
+# if not, show available options
 echo 'Usage: '`basename $0`' option'
-echo 'Available options:'
-for option in "${options[@]}"
+echo 'Main options:'
+for option in "${mainOptions[@]}"
 do
   echo " - $option "
 done
+echo 'Other tools:'
+for tool in "${tools[@]}"
+do
+  echo " - $tool "
+done
+echo

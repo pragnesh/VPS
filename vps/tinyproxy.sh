@@ -40,4 +40,4 @@ EOF
   fi
 }
 
-options=("${options[@]}" "tinyproxy (Light-weight HTTP/HTTPS proxy)")
+addModule "tinyproxy (Light-weight HTTP/HTTPS proxy)"

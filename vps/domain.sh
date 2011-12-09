@@ -59,14 +59,14 @@ server {
   index index.html index.php default.html;
 
   location / {
-    try_files $uri $uri/ @rewrites;
+    try_files \$uri \$uri/ @rewrites;
   }
 
   location @rewrites {
     rewrite ^ /index.php last;
   }
 
-  location ~ \.php$ {
+  location ~ \.php {
     include /etc/nginx/fastcgi_params;
     fastcgi_pass 127.0.0.1:9000;
   }
@@ -85,4 +85,4 @@ EOF
   fi
 }
 
-options=("${options[@]}" "domain <[subdomain.]domain.tld>")
+addModule "domain <[subdomain.]domain.tld>"

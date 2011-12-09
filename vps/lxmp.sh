@@ -62,6 +62,11 @@ phpfpm() {
     sed -i 's/^pm.max_spare_servers.*/pm.max_spare_servers = 4/' /etc/php5/fpm/pool.d/www.conf
     sed -i 's/\;pm.max_requests.*/pm.max_requests = 1000/' /etc/php5/fpm/pool.d/www.conf
 
+    cat > /etc/php5/conf.d/php.ini <<EOF
+[PHP]
+short_open_tag = On
+EOF
+
     service php5-fpm restart
     ok 'php5-fpm installed and setup.\n'
 
@@ -108,4 +113,5 @@ lemp() {
   phpfpm
 }
 
-options=("${options[@]}" "lamp (Apache/MySQL/PHP)" "lemp (nginx/MySQL/PHP)")
+addModule "lamp (Apache/MySQL/PHP)"
+addModule "lemp (nginx/MySQL/PHP)"

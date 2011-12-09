@@ -7,7 +7,7 @@
 #  - apt update
 # ------------------------------------------------------------ #
 
-setup() {
+basics() {
   HOSTNAME=`cat /etc/hostname`
   if ! confirm "Confirm or input new hostname" $HOSTNAME; then
     echo $REPLY > /etc/hostname
