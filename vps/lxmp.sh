@@ -76,7 +76,7 @@ EOF
 }
 
 mysql() {
-  if ! apt_installed mysql; then
+  if ! apt_installed mysql-server; then
 
     cat > /usr/sbin/policy-rc.d <<EOF
 #!/bin/sh
@@ -84,13 +84,16 @@ exit 101
 EOF
     chmod +x /usr/sbin/policy-rc.d
 
-    apt_install 'mysql-server mysql-client'
+    apt_install 'mysql-server'
 
     rm /usr/sbin/policy-rc.d
-    rm -f /var/lib/mysql/ib*
     cat > /etc/mysql/conf.d/$HOSTNAME.cnf <<EOF
 [mysqld]
 skip-innodb
+default-storage-engine=MyISAM
+
+key_buffer = 8M
+query_cache_size = 0
 EOF
 
     service mysql start
@@ -103,13 +106,13 @@ EOF
 
 lamp() {
   apache
-#  mysql
+  mysql
   phpfpm
 }
 
 lemp() {
   nginx
-#  mysql
+  mysql
   phpfpm
 }
 

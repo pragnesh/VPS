@@ -37,11 +37,13 @@ do
   source $file
 done
 
-# Check if paramater(s), and corresponding function...
+# Check if any parameter, and corresponding function...
 if [ ! -z "$1" ]; then
   if [ `declare -F $1` ]; then
-	$@
-	exit $?
+    $@
+    exit $?
+  else
+    die "Unknown command: $1"
   fi
 fi
 

@@ -19,6 +19,7 @@ EOF
   cat > /var/www/$1/public_html/phpInfo.php <<EOF
 <?php phpinfo();
 EOF
+  wget http://sourceforge.net/projects/adminer/files/latest/download -O /var/www/$1/public_html/adminer.php
 
   chown root:root -R /var/www/$1
 
