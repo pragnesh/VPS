@@ -11,10 +11,13 @@ Debian Squeeze VPS.
 2. Run: bash vps.sh
 
 You will then find 3 main options:
+
 - minimal (Light Debian server + SSH)
 - basics (hostname, timezone, APT sources)
 - lowendbox (LEA style: syslogd, xinetd, dropbear)
+
 and a set of different commands
+
 - apache
 - nginx
 - phpfpm
