@@ -39,12 +39,17 @@ done
 
 # Check if any parameter, and corresponding function...
 if [ ! -z "$1" ]; then
-  if [ `declare -F $1` ]; then
-    $@
-    exit $?
-  else
-    die "Unknown command: $1"
-  fi
+  while [ ! -z "$1" ]; do
+    if [ `declare -F $1` ]; then
+      SHIFT=1
+      $@
+      shift $SHIFT
+    else
+      die "Unknown command: $1"
+    fi
+  done
+
+  exit
 fi
 
 # if not, show available options

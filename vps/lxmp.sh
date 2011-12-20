@@ -13,7 +13,7 @@ apache() {
 
     apt_install 'apache2 libapache2-mod-fastcgi'
     a2dissite default
-    a2enmod rewrite
+    a2enmod actions rewrite
 
     cp /etc/apache2/conf.d/{security,security.bak}
     sed -i 's/^ServerTokens .*/ServerTokens Prod/' /etc/apache2/conf.d/security

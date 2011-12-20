@@ -7,8 +7,23 @@ Debian Squeeze VPS.
 
 ## Usage
 
-1. Download: wget --no-check-certificate https://nodeload.github.com/TigersWay/VPS/tarball/master -O- | tar xz --strip-components=1 --exclude=*.md
+1. Download: wget -q https://github.com/downloads/TigersWay/VPS/vps.tar.gz -O - | tar xz
 2. Run: bash vps.sh
+
+You will then find 3 main options:
+- minimal (Light Debian server + SSH)
+- basics (hostname, timezone, APT sources)
+- lowendbox (LEA style: syslogd, xinetd, dropbear)
+and a set of different commands
+- apache
+- nginx
+- phpfpm
+- lamp (Apache/MySQL/PHP)
+- lemp (nginx/MySQL/PHP)
+- domain <[subdomain.]domain.tld>
+- tinyproxy (Light-weight HTTP/HTTPS proxy)
+
+As a developer, I personally first run "bash vps.sh basics lowendbox" which gives me a light (~ 5M) box, then "bash vps.sh apache nginx mysql phpfmp domain dev.example.com" and I am then able to switch apache and nginx anytime with "bash vps.sh nginx" or "bash vps.sh apache".
 
 ## Copyright and License
 

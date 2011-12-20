@@ -3,6 +3,8 @@
 # ------------------------------------------------------------ #
 
 domain() {
+  let "SHIFT += 1"
+
   if [ -z "$1" ]; then
     die "Check usage!"
   fi
@@ -19,7 +21,7 @@ EOF
   cat > /var/www/$1/public_html/phpInfo.php <<EOF
 <?php phpinfo();
 EOF
-  wget http://sourceforge.net/projects/adminer/files/latest/download -O /var/www/$1/public_html/adminer.php
+  wget -q http://sourceforge.net/projects/adminer/files/latest/download -O /var/www/$1/public_html/adminer.php
 
   chown root:root -R /var/www/$1
 
@@ -34,10 +36,10 @@ EOF
   ErrorLog /var/www/$1/logs/error.log
   CustomLog /var/www/$1/logs/access.log combined
 
-  FastCgiServer /var/www/php5.external -host 127.0.0.1:9000
+  FastCGIExternalServer /var/www/php5.external -host 127.0.0.1:9000
   AddHandler php5-fcgi .php
-  Action php5-fcgi /user/lib/cgi-bin/php5.external
-  Alias /user/lib/cgi-bin /var/www/
+  Action php5-fcgi /usr/lib/cgi-bin/php5.external
+  Alias /usr/lib/cgi-bin /var/www/
 
 </VirtualHost>
 EOF
