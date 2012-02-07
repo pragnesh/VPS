@@ -14,6 +14,7 @@ domain() {
   fi
 
   mkdir -p /var/www/$1/{logs,public_html}
+  ln -s /var/www/$1
 
   cat > /var/www/$1/public_html/default.html <<EOF
 <p>Welcome to <strong>$1</strong>'s default placeholder!</p>
@@ -23,7 +24,7 @@ EOF
 EOF
   wget -q http://sourceforge.net/projects/adminer/files/latest/download -O /var/www/$1/public_html/adminer.php
 
-  chown root:root -R /var/www/$1
+  chown -R :www-data /var/www/$1
 
   if [ -e /etc/apache2 ]; then
 
