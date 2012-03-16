@@ -1,6 +1,28 @@
 # ------------------------------------------------------------ #
-# VPS Management : TinyProxy
+# VPS Management : Proxy
 # ------------------------------------------------------------ #
+
+polipo() {
+  if ! apt_installed polipo; then
+    apt_install polipo
+
+    IPS=`who | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}'`
+    if ! confirm 'Confirm your IP only can access polipo.\n Or set which one(s)' $IPS; then
+      IPS=$REPLY
+    fi
+
+    cp /etc/polipo/config /etc/polipo/config.bak
+    cat > /etc/polipo/config <<EOF
+proxyAddress = "0.0.0.0"    # IPv4 only
+allowedClients = $IPS
+EOF
+
+    service polipo restart
+    ok 'polipo installed and setup.\n'
+  else
+    service polipo restart
+  fi
+}
 
 tinyproxy() {
   if ! apt_installed tinyproxy; then
@@ -40,4 +62,5 @@ EOF
   fi
 }
 
-addModule "tinyproxy (Light-weight HTTP/HTTPS proxy)"
+addModule "polipo (Light-weight SOCKS & HTTP proxy)"
+addModule "tinyproxy (DEPRECATED Light-weight HTTP/HTTPS proxy)"

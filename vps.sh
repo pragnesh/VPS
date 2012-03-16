@@ -1,13 +1,16 @@
 # ------------------------------------------------------------ #
 # VPS Management : Menu
 #
-# 0.4 15/03/2012
+# 0.4 16/03/2012
 #  - setup
 #    - squeeze-proposed-updates to squeeze-updates
 #    - BuyVM's mirrors
 #  - bench
 #    - now shows guarantee/burst memory.
 #    - new echo style
+#  - proxy
+#    - tinyproxy deprecated
+#    - polipo = new proxy with tunneling capabilities
 #  
 # ------------------------------------------------------------ #
 #!/bin/bash
@@ -71,7 +74,7 @@ if [ ! -z "$1" ]; then
 fi
 
 # if not, show available options
-echo 'Usage: '`basename $0`'[-p Provider] option'
+echo 'Usage: '`basename $0`' [-p Provider] option'
 echo 'Main options:'
 for option in "${mainOptions[@]}"
 do

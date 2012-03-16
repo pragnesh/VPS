@@ -12,25 +12,43 @@ Debian Squeeze VPS.
 
 You will then find 3 main options:
 
-- minimal (Light Debian server + SSH)
-- basics (hostname, timezone, APT sources)
-- lowendbox (LEA style: syslogd, xinetd, dropbear)
+* minimal (Light Debian server + SSH)
+* basics (hostname, timezone, APT sources)
+* lowendbox (LEA style: syslogd, xinetd, dropbear)
 
-and a set of different commands
+and a set of different commands:
 
-- apache
-- nginx
-- phpfpm
-- lamp (Apache/MySQL/PHP)
-- lemp (nginx/MySQL/PHP)
-- domain <[subdomain.]domain.tld>
-- tinyproxy (Light-weight HTTP/HTTPS proxy)
+* apache
+* nginx
+* phpfpm
+* lamp (Apache/MySQL/PHP)
+* lemp (nginx/MySQL/PHP)
+* domain <[subdomain.]domain.tld>
+* polipo (Light-weight SOCKS & HTTP proxy)
+* tinyproxy (DEPRECATED Light-weight HTTP/HTTPS proxy)
 
-As a developer, I personally first run "bash vps.sh basics lowendbox" which gives me a light (~ 5M) box, then "bash vps.sh apache nginx mysql phpfmp domain dev.example.com" and I am then able to switch apache and nginx anytime with "bash vps.sh nginx" or "bash vps.sh apache".
+As a developer, I personally first run  
+`bash vps.sh basics lowendbox` which gives me a light (~ 5M) box, then  
+`bash vps.sh apache nginx mysql phpfmp domain dev.example.com` and I am then able to switch apache and nginx anytime with  
+`bash vps.sh nginx` or  
+`bash vps.sh apache`.
+
+## History
+
+### 0.4 16/03/2012
+* setup
+ * squeeze-proposed-updates to squeeze-updates
+ * BuyVM's mirrors
+* bench
+ * now shows guarantee/burst memory.
+ * new echo style
+* proxy
+ * tinyproxy deprecated
+ * polipo = new proxy with tunneling capabilities
 
 ## Copyright and License
 
-Copyright (c) 2011 Benoit Michaud / Tiger's Way
+Copyright (c) 2012 Benoit Michaud / Tiger's Way
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
