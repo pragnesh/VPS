@@ -7,7 +7,7 @@ Debian Squeeze VPS.
 
 ## Quick usage
 
-1. Download: wget -q https://github.com/downloads/TigersWay/VPS/vps-0.4.tar.gz --no-check-certificate -O - | tar xfz
+1. Download: wget -q https://github.com/downloads/TigersWay/VPS/vps-0.4.tar.gz --no-check-certificate -O - | tar xz
 2. Run: bash vps.sh
 
 You will then find 3 main options:
