@@ -1,9 +1,18 @@
 # ------------------------------------------------------------ #
 # VPS Management : Menu
+#
+# 0.4 15/03/2012
+#  - setup
+#    - squeeze-proposed-updates to squeeze-updates
+#    - BuyVM's mirrors
+#  - bench
+#    - now shows guarantee/burst memory.
+#    - new echo style
+#  
 # ------------------------------------------------------------ #
 #!/bin/bash
 
-echo -e "\e[1mVPS Management v0.3 (Tiger's Way)\e[m";
+echo -e "\e[1mVPS Management v0.4 (Tiger's Way)\e[m";
 
 # Sanity checks
 
@@ -37,9 +46,18 @@ do
   source $file
 done
 
-# Check if any parameter, and corresponding function...
+# Check if any option or parameter and corresponding function...
+PROVIDER=
 if [ ! -z "$1" ]; then
   while [ ! -z "$1" ]; do
+    case $1 in
+      --provider|-p)
+        shift
+        PROVIDER=${1,,}
+        echo "Provider : "$PROVIDER
+        shift
+        ;;
+    esac
     if [ `declare -F $1` ]; then
       SHIFT=1
       $@
@@ -53,7 +71,7 @@ if [ ! -z "$1" ]; then
 fi
 
 # if not, show available options
-echo 'Usage: '`basename $0`' option'
+echo 'Usage: '`basename $0`'[-p Provider] option'
 echo 'Main options:'
 for option in "${mainOptions[@]}"
 do

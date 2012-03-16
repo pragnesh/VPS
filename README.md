@@ -5,7 +5,7 @@
 This should provide a set of simple shell scripts which may help setting your
 Debian Squeeze VPS.
 
-## Usage
+## Quick usage
 
 1. Download: wget -q https://github.com/downloads/TigersWay/VPS/vps.tar.gz --no-check-certificate -O - | tar xz
 2. Run: bash vps.sh

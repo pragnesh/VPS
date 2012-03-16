@@ -33,15 +33,28 @@ EOF
 
   if ! grep -q "^# Tiger's Way" /etc/apt/sources.list; then
 
-    if confirm 'Confirm or input new country mirror' 'us'; then
-      REPLY='us'
-    fi
-    cat > /etc/apt/sources.list <<EOF
+    case $PROVIDER in
+      buyvm)
+        cat > /etc/apt/sources.list <<EOF
+# Tiger's Way
+deb http://mirrors.buyvm.net/debian/ squeeze main contrib non-free
+# Squeeze updates mirror is out, and no fix is scheduled :-(
+#deb http://mirrors.buyvm.net/debian/ squeeze-updates main contrib non-free
+deb http://ftp.us.debian.org/debian/ squeeze-updates main contrib non-free
+deb http://security.debian.org/ squeeze/updates main
+EOF
+        ;;
+      *)
+        if confirm 'Confirm or input new country mirror' 'us'; then
+          REPLY='us'
+        fi
+        cat > /etc/apt/sources.list <<EOF
 # Tiger's Way
 deb http://ftp.$REPLY.debian.org/debian/ squeeze main contrib non-free
+deb http://ftp.$REPLY.debian.org/debian/ squeeze-updates main contrib non-free
 deb http://security.debian.org/ squeeze/updates main
-deb http://ftp.$REPLY.debian.org/debian/ squeeze-proposed-updates main contrib non-free
 EOF
+    esac
   fi
 
   if [ ! -e /etc/apt/sources.list.d/dotdeb.list ]; then
