@@ -1,21 +1,25 @@
 # ------------------------------------------------------------ #
 # VPS Management : Menu
 #
+# 0.5 28/03/2012
+#  - bench
+#    - detect OpenVZ
+#
 # 0.4 16/03/2012
 #  - setup
 #    - squeeze-proposed-updates to squeeze-updates
 #    - BuyVM's mirrors
 #  - bench
-#    - now shows guarantee/burst memory.
+#    - now shows guarantee/burst memory
 #    - new echo style
 #  - proxy
 #    - tinyproxy deprecated
 #    - polipo = new proxy with tunneling capabilities
-#  
+#
 # ------------------------------------------------------------ #
 #!/bin/bash
 
-echo -e "\e[1mVPS Management v0.4 (Tiger's Way)\e[m";
+echo -e "\e[1mVPS Management v0.5 (Tiger's Way)\e[m";
 
 # Sanity checks
 
@@ -57,7 +61,6 @@ if [ ! -z "$1" ]; then
       --provider|-p)
         shift
         PROVIDER=${1,,}
-        echo "Provider : "$PROVIDER
         shift
         ;;
     esac
@@ -74,13 +77,13 @@ if [ ! -z "$1" ]; then
 fi
 
 # if not, show available options
-echo 'Usage: '`basename $0`' [-p Provider] option'
+echo 'Usage: '`basename $0`' [-p Provider] option [option...]'
 echo 'Main options:'
 for option in "${mainOptions[@]}"
 do
   echo " - $option "
 done
-echo 'Other tools:'
+echo 'Other options/tools:'
 for tool in "${tools[@]}"
 do
   echo " - $tool "

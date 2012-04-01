@@ -80,7 +80,7 @@ EOF
 
     invoke-rc.d ssh stop
 
-    IPS=`who | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'`
+    IPS=`who | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}'`
     if ! confirm 'Confirm your IP only has access via SSH.\n Or set which one(s)' $IPS; then
       IPS=$REPLY
     fi

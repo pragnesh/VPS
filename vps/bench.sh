@@ -11,8 +11,11 @@ bench() {
   echo "        Cores : $cores"
   echo "    Frequency : $freq MHz"
 
-#  ram=$( free -m | awk 'NR==2 {print $2}' )
-  ram=$( awk '/vmguarpages/ {garantee=$4*4/1024} /privvmpages/ {burst=$4*4/1024} END {printf "%d/%d",garantee,burst}' /proc/user_beancounters )
+  if [ $OPENVZ ]; then
+    ram=$( awk '/vmguarpages/ {garantee=$4*4/1024} /privvmpages/ {burst=$4*4/1024} END {printf "%d/%d",garantee,burst}' /proc/user_beancounters )
+  else
+    ram=$( free -m | awk 'NR==2 {print $2}' )
+  fi
   swap=$( free -m | awk 'NR==4 {print $2}' )
   echo "          Ram : $ram MB"
   echo "         Swap : $swap MB"

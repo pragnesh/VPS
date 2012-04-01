@@ -15,6 +15,12 @@ trap bashtrap 2
 
 # ... and some generic functions
 
+input() {
+  echo -e -n '\e[36m'$1' : \e[1m'
+  read
+  echo -e -n '\e[m'
+}
+
 confirm() {
   echo -e -n '\e[36m'$1' [\e[1m'$2'\e[0;36m]: \e[1m'
   read
@@ -81,3 +87,9 @@ apt_clean() {
   aptitude clean
   ok "Done.\n"
 }
+
+# Detection(s)
+
+if [[ `grep envID /proc/self/status` > 0 ]]; then
+  OPENVZ=1
+fi
