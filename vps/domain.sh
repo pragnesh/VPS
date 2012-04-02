@@ -19,9 +19,11 @@ domain() {
   cat > /var/www/$1/public_html/default.html <<EOF
 <p>Welcome to <strong>$1</strong>'s default placeholder!</p>
 EOF
+
   cat > /var/www/$1/public_html/phpInfo.php <<EOF
 <?php phpinfo();
 EOF
+
   wget -q http://sourceforge.net/projects/adminer/files/latest/download -O /var/www/$1/public_html/adminer.php
 
   chown -R :www-data /var/www/$1

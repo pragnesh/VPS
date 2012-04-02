@@ -2,12 +2,27 @@
 # VPS Management : Apache/nginx, MySQL, PHP
 # ------------------------------------------------------------ #
 
-apache() {
-  # Stop & disable nginx if needed
-  if ps -C nginx > /dev/null; then
-    service nginx stop
-    update-rc.d -f nginx remove
+dotdeb() {
+  if [ ! -e /etc/apt/sources.list.d/dotdeb.list ]; then
+    cat > /etc/apt/sources.list.d/dotdeb.list <<EOF
+deb http://packages.dotdeb.org/ squeeze all
+EOF
+    wget -q -O - http://www.dotdeb.org/dotdeb.gpg | apt-key add -
+
+    apt_update
   fi
+}
+
+server_stop() {
+  # Stop & disable web server if needed
+  if ps -C $1 > /dev/null; then
+    service $1 stop
+    update-rc.d -f $1 remove
+  fi
+}
+
+apache() {
+  server_stop nginx
 
   if ! apt_installed apache2; then
 
@@ -16,8 +31,9 @@ apache() {
     a2enmod actions rewrite
 
     cp /etc/apache2/conf.d/{security,security.bak}
-    sed -i 's/^ServerTokens .*/ServerTokens Prod/' /etc/apache2/conf.d/security
+    sed -i '/^#ServerTokens/d;s/^ServerTokens .*/ServerTokens Prod/' /etc/apache2/conf.d/security
 
+	service apache2 restart
     ok 'apache installed and setup.\n'
 
   else
@@ -26,20 +42,18 @@ apache() {
   fi
 }
 
+
 nginx() {
-  # Stop & disable apache if needed
-  if ps -C apache2 > /dev/null; then
-    service apache2 stop
-    update-rc.d -f apache2 remove
-  fi
+  server_stop apache2
 
   if ! apt_installed nginx; then
 
     apt_install nginx
 
     cp /etc/nginx/{nginx.conf,nginx.conf.bak}
-    sed -i 's/worker_processes [0-9]*/worker_processes 2/' /etc/nginx/nginx.conf
     sed -i 's/\#\s*server_tokens off;/server_tokens off;/' /etc/nginx/nginx.conf
+    PR=$( awk '/cpu MHz/ {cores++} END {print cores+1}' /proc/cpuinfo )
+    sed -i "s/worker_processes [0-9]*/worker_processes $PR/" /etc/nginx/nginx.conf
     sed -i 's/worker_connections [0-9]*/worker_connections 1024/' /etc/nginx/nginx.conf
 
     service nginx start
@@ -105,16 +119,18 @@ EOF
 }
 
 lamp() {
+  dotdeb
   apache
   mysql
   phpfpm
 }
 
 lemp() {
+  dotdeb
   nginx
   mysql
   phpfpm
 }
 
-addModule "lamp (Apache/MySQL/PHP)"
-addModule "lemp (nginx/MySQL/PHP)"
+addModule "lamp (Apache + MySQL(MyISAM) + PHP5-FPM)"
+addModule "lemp (nginx + MySQL(MyISAM) + PHP5-FPM)"

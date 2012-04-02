@@ -3,8 +3,7 @@
 #  - hostname
 #  - timezone
 #  - aliases & prompt
-#  - apt sources (+DotDeb)
-#  - apt update
+#  - apt sources
 # ------------------------------------------------------------ #
 
 basics() {
@@ -38,9 +37,7 @@ EOF
         cat > /etc/apt/sources.list <<EOF
 # Tiger's Way
 deb http://mirrors.buyvm.net/debian/ squeeze main contrib non-free
-# Squeeze updates mirror is out, and no fix is scheduled :-(
-#deb http://mirrors.buyvm.net/debian/ squeeze-updates main contrib non-free
-deb http://ftp.us.debian.org/debian/ squeeze-updates main contrib non-free
+deb http://mirrors.buyvm.net/debian/ squeeze-updates main contrib non-free
 deb http://security.debian.org/ squeeze/updates main
 EOF
         ;;
@@ -55,15 +52,6 @@ deb http://ftp.$REPLY.debian.org/debian/ squeeze-updates main contrib non-free
 deb http://security.debian.org/ squeeze/updates main
 EOF
     esac
-  fi
-
-  if [ ! -e /etc/apt/sources.list.d/dotdeb.list ]; then
-    if yesno 'Would you like to add DotDeb as a source' 'Y'; then
-      cat > /etc/apt/sources.list.d/dotdeb.list <<EOF
-deb http://packages.dotdeb.org/ squeeze all
-EOF
-      wget -q -O - http://www.dotdeb.org/dotdeb.gpg | apt-key add -
-    fi
   fi
 
   apt_update
