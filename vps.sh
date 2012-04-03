@@ -1,9 +1,12 @@
 # ------------------------------------------------------------ #
 # VPS Management : Menu
 #
-# 0.5 28/03/2012
+# 0.5 03/04/2012
 #  - bench
 #    - detect OpenVZ
+#  - lxmp
+#    - separate DotDeb source
+#  - vpn/pptp
 #
 # 0.4 16/03/2012
 #  - setup

@@ -7,7 +7,7 @@ Debian Squeeze VPS.
 
 ## Quick usage
 
-1. Download: wget -q https://github.com/downloads/TigersWay/VPS/vps-0.4.tar.gz --no-check-certificate -O - | tar xz
+1. Download: wget -q https://github.com/downloads/TigersWay/VPS/vps-0.5.tar.gz --no-check-certificate -O - | tar xz
 2. Run: bash vps.sh
 
 You will then find 3 main options:
@@ -18,22 +18,32 @@ You will then find 3 main options:
 
 and a set of different commands:
 
+* dotdeb
 * apache
 * nginx
+* mysql
 * phpfpm
-* lamp (Apache/MySQL/PHP)
-* lemp (nginx/MySQL/PHP)
+* lamp ((Apache + MySQL(MyISAM) + PHP5-FPM)
+* lemp (nginx + MySQL(MyISAM) + PHP5-FPM)
 * domain <[subdomain.]domain.tld>
 * polipo (Light-weight SOCKS & HTTP proxy)
 * tinyproxy (DEPRECATED Light-weight HTTP/HTTPS proxy)
+* pptp (Tunneling)
 
-As a developer, I personally first run  
-`bash vps.sh basics lowendbox` which gives me a light (~ 5M) box, then  
-`bash vps.sh apache nginx mysql phpfmp domain dev.example.com` and I am then able to switch apache and nginx anytime with  
-`bash vps.sh nginx` or  
+As a developer, I personally first run
+`bash vps.sh basics lowendbox` which gives me a light (~ 5M) box, then
+`bash vps.sh dotdeb apache nginx mysql phpfmp domain dev.example.com` and I am then able to switch apache and nginx anytime with
+`bash vps.sh nginx` or
 `bash vps.sh apache`.
 
 ## History
+
+### 0.5 03/04/2012
+* bench
+ * detect OpenVZ
+* lxmp
+ * separate DotDeb source
+* vpn/pptp
 
 ### 0.4 16/03/2012
 * setup
